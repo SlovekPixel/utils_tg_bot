@@ -19,6 +19,7 @@ export const authMiddleware: MiddlewareFn<Context> = async (ctx, next) => {
   const isPasswordCorrect = Scenario.checkPassword('AUTH', messageText)
   if (isPasswordCorrect) {
     await User.create(userId, ctx.from?.username)
+    await ctx.reply(Comments.SUCCESSFUL_ACCESS)
     await next()
   } else {
     await ctx.reply(Comments.NEED_PASSWORD)

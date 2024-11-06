@@ -15,11 +15,20 @@ datasource db {
 }
 
 model User {
-  id          Int         @id @default(autoincrement())
-  user_id     Int         @unique
-  username    String?
-  admin       Boolean     @default(false)
-  access      Boolean     @default(true)
-  roles       String      @default("[]")
-  created_at  DateTime    @default(now())
+  id         Int      @id @default(autoincrement())
+  user_id    Int      @unique
+  username   String?
+  admin      Boolean  @default(false)
+  access     Boolean  @default(true)
+  roles      String   @default("[]")
+  created_at DateTime @default(now())
+  files      File[]
+}
+
+model File {
+  id     Int    @id @default(autoincrement())
+  name   String
+  link   String
+  userId Int
+  user   User   @relation(fields: [userId], references: [id])
 }
